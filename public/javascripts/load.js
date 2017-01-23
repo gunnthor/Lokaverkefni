@@ -8,7 +8,11 @@ var loadState = {
     game.load.image('sky', 'images/sky.png');
     game.load.image('ground', 'images/platform.png');
     game.load.image('star', 'images/star.png');
+    game.load.image('phaser', 'images/phaser.png');
+    game.load.image('firstaid', 'images/firstaid.png');
     game.load.spritesheet('dude', 'images/dude.png', 32, 48);
+
+
   },
 
   create: function() {
