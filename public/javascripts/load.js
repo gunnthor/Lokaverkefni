@@ -12,7 +12,7 @@ var loadState = {
     game.load.image('firstaid', 'images/firstaid.png');
     game.load.spritesheet('dude', 'images/dude.png', 32, 48);
 
-
+    
   },
 
   create: function() {

@@ -1,7 +1,7 @@
 var menuState = {
 	create: function(){
 
-		var nameLabel = game.add.text(80, 80, 'My Race', 
+		var nameLabel = game.add.text(80, 80, 'One Last Ride!', 
 			{font: '25px Arial', fill: '#ffffff'});
 
 		var startLabel = game.add.text(80, game.world.height-80,
