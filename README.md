@@ -15,12 +15,9 @@
 # 22 jan Fiktaði í Phaser og byrjaði að skoða Box2D physics engine
 #        Fékk upp hluti til að snúast og fór að velta fyrir mér farartækinu.
 
-# 23 jan 
+# 23 jan Setti tvö dekk saman við búk og myndaði nokkruskonar bíl. Bætti við gravity og tökkum til þess að keyra fram og til baka.
 
+# 24 jan Fór í að skoða hvernig side-scrolling virkar og hvernig á að útfæra það.
 
-
-#		Markmið dagsins: 
-#		1) Fikta með gravity. 
-#		2) Reyna fá dekk til aðkeyra
-#       Má vera bara hreyfing. Rotation væri næs.
-#	    bonus: tvö dekk synced.
+# 25 jan Komast að því að það væri sniðugt að breyta öllum object yfir i prototype og byrjaði á því.
+#        Náði að fá side-scrolling til að virka og kláraði að setja upp prototypes og fiktaði í loading screen
