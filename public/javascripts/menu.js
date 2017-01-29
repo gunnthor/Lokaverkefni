@@ -14,6 +14,9 @@ LastRide.menuState.prototype = {
 		var wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
 
 		wKey.onDown.addOnce(this.start, this);
+
+		// starta strax bara..
+		this.start(this);
 	},
 
 	start: function() {

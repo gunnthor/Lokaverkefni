@@ -19,7 +19,31 @@ LastRide.loadState.prototype = {
     this.load.image('firstaid', 'images/firstaid.png');
     this.load.spritesheet('dude', 'images/dude.png', 32, 48);
 
-    this.game.world.setBounds(0, 0, 1920, 800);
+    this.game.world.setBounds(0, 0, 5000, 1600);
+
+    var wKey;
+    var aKey;
+    var dKey;
+    var qKey;
+
+    var leftJoint;
+    var rightJoint;
+    var carJoints = [];
+    var speed;
+    var speedoMetre;
+    var torqueMetre;
+
+    this.wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+    this.dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+    this.qKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Q);
+
+    this.zKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Z);
+    this.xKey = this.game.input.keyboard.addKey(Phaser.Keyboard.X);
+    this.cKey = this.game.input.keyboard.addKey(Phaser.Keyboard.C);
+    this.vKey = this.game.input.keyboard.addKey(Phaser.Keyboard.V);
+    this.bKey = this.game.input.keyboard.addKey(Phaser.Keyboard.B);
 
     
   },

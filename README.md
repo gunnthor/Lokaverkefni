@@ -21,3 +21,5 @@
 
 # 25 jan Komast að því að það væri sniðugt að breyta öllum object yfir i prototype og byrjaði á því.
 #        Náði að fá side-scrolling til að virka og kláraði að setja upp prototypes og fiktaði í loading screen
+
+# 26 jan Hanna bílinn betur. Stilla hröðun og viðnám við jörðina.

@@ -16,7 +16,7 @@ LastRide.bootState.prototype = {
 	    this.game.physics.box2d.setBoundsToWorld();
         this.game.physics.box2d.friction = 1;
         this.game.stage.backgroundColor = '#124184';
-
+        
 		//Launch the load state next.
 		LastRide.game.state.start('load');
 	}
