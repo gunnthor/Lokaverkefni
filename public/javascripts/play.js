@@ -69,32 +69,57 @@ LastRide.playState.prototype = {
     this.game.input.addMoveCallback(mouseDragMove, this);
     this.game.input.onUp.add(mouseDragEnd, this);
 
-    this.speedoMetre = this.game.add.text(5, 5, 'Speed:', { fill: '#ffffff', font: '14pt Arial' } );
+    this.speedoMetre = this.game.add.text(200, 5, 'Speed:', { fill: '#ffffff', font: '14pt Arial' } );
     this.torqueMetre = this.game.add.text(30, 5, 'torque:', { fill: '#ffffff', font: '14pt Arial' } );
     this.speedoMetre.fixedToCamera = true;
     this.torqueMetre.fixedToCamera = true;
 
-    // this.game.camera.follow(this.carBody);
+    this.game.camera.follow(this.carBody);
   },
   oneTime: function() {
     console.log("mhm");
     console.log(this.leftJoint.GetMotorSpeed());
   },
+  carAcceleration: function(status, acceleration) {
+    var currentSpeed = ( (carJoints[0].GetMotorSpeed() + carJoints[1].GetMotorSpeed() ) /2 )
+    // var decreaseSpeed = currentSpeed/1.1;
+    var decreaseSpeed = currentSpeed-1;
+    for(var i = 0; i < 2; i++){
+      if(acceleration) {
+        carJoints[i].EnableMotor(status);
+        carJoints[i].SetMotorSpeed(acceleration);  
+      } else {
+        carJoints[i].EnableMotor(false);
+        // if(currentSpeed <= 1 && currentSpeed >= -1) {
+        //   carJoints[i].SetMotorSpeed(0);
+        // } else if(currentSpeed < -1) {
+        //   console.log("this?");
+        //   carJoints[i].SetMotorSpeed(currentSpeed + 0.5 );  
+        // } else {
+        //   carJoints[i].SetMotorSpeed(currentSpeed - 0.5);
+        // }
+      }
+    }
+  },
 
   update: function() {
     if(this.aKey.isDown) {
-      carJoints[0].SetMotorSpeed(carJoints[0].GetMotorSpeed()-0.5);
-      carJoints[1].SetMotorSpeed(carJoints[1].GetMotorSpeed()-0.5);
+      this.carAcceleration('on', -50);
     } else if(this.dKey.isDown) {
-      carJoints[0].SetMotorSpeed(carJoints[0].GetMotorSpeed()+0.5);
-      carJoints[1].SetMotorSpeed(carJoints[1].GetMotorSpeed()+0.5);
-    };
-    // this.speedoMetre.setText("Speed: " + this.leftJoint.GetMotorSpeed()); 
+      this.carAcceleration('on', 50);
+    } else if(this.sKey.isDown) {
+      this.carAcceleration('on', 0);
+      console.log("skey");
+    } else {
+      this.carAcceleration('off', false );
+    }
+
+    this.speedoMetre.setText("Speed: " + (carJoints[0].GetMotorSpeed() + carJoints[1].GetMotorSpeed() )/2 ); 
     // this.torqueMetre.setText("Torque" + this.leftJoint.GetMotorTorque)
   },
 
   render: function() {
-  	this.game.debug.box2dWorld();
+  	// this.game.debug.box2dWorld();
     this.game.debug.cameraInfo(this.game.camera, 32, 32);
   },
 
@@ -105,10 +130,11 @@ LastRide.playState.prototype = {
 
   createWall: function() {
     console.log('wall?')
-    this.leftWall = new Phaser.Physics.Box2D.Body(this.game, null, 0, 350, 0.5);
-    this.leftWall.setRectangle(32, 500, 0, 0, 0);
+    this.leftWall = new Phaser.Physics.Box2D.Body(this.game, null, 500, 350, 0.5);
+    this.leftWall.setRectangle(100, 400, 200, 250, 240);
     this.leftWall.static = true;
     this.leftWall.backgroundColor = 'red';
+    this.leftWall.color = 'red';
     this.game.physics.box2d.enable(this.leftWall);
   },
 
@@ -119,7 +145,7 @@ LastRide.playState.prototype = {
     // this.carBody = new Phaser.Physics.Box2D.Body(this.game, 'phaser', 0, -50);
     
     var carWheels = [];
-    var xPos = [-55, 55];
+    var xPos = [-50, 50];
     
     console.log("carJoints " + carJoints);
     for(var i = 0; i < 2; i++) {
@@ -129,7 +155,7 @@ LastRide.playState.prototype = {
       carWheels[i].friction = 1;
       carWheels[i].xPos = xPos[i];
                                      // bodyA, bodyB, ax, ay, bx, by, axisX, axisY, frequency, damping, motorSpeed, motorTorque, motorEnabled
-      carJoints[i] = this.game.physics.box2d.wheelJoint(this.carBody, carWheels[i], carWheels[i].xPos,22,0,0,0,1,
+      carJoints[i] = this.game.physics.box2d.wheelJoint(this.carBody, carWheels[i], carWheels[i].xPos,35,0,0,0,1,
        3, 1, 0, 100, true);
     };
     
