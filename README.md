@@ -25,3 +25,7 @@
 # 26 jan Hanna bílinn betur. Stilla hröðun og viðnám við jörðina.
 
 # 29 jan Halda áfram með bílinn.
+
+# 2 feb Setti free cam, Skoðaði hvernig væri best að hanna jörðina.
+
+# 8 feb Gerði braut fyrir bílinn með collision detection út frá vertices.

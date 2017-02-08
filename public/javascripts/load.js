@@ -25,6 +25,7 @@ LastRide.loadState.prototype = {
     var aKey;
     var dKey;
     var qKey;
+    var cursors;
 
     var leftJoint;
     var rightJoint;
@@ -32,7 +33,8 @@ LastRide.loadState.prototype = {
     var speed;
     var speedoMetre;
     var torqueMetre;
-
+    
+    // þetta er gagnslaust:
     this.wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
     this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -44,6 +46,7 @@ LastRide.loadState.prototype = {
     this.cKey = this.game.input.keyboard.addKey(Phaser.Keyboard.C);
     this.vKey = this.game.input.keyboard.addKey(Phaser.Keyboard.V);
     this.bKey = this.game.input.keyboard.addKey(Phaser.Keyboard.B);
+    this.cursors = this.game.input.keyboard.createCursorKeys();
 
     
   },
