@@ -15,26 +15,16 @@ var leftWheel;
 var rightWheel;
 
 var track;
-var trackVertices = [0, 300, 400, 300];
-// var trackVertices = [0, 300, 400, 300,1400,300, 1500, 250, 1500, 300]
-var newTrack = false;
+var trackVertices = [0, 300, 400, 300]
 var johnny;
+var newTrack = false;   
 
 var freecam = false;
-
-// ground
-var bmd = null
-var points = {
-  'x': [150,200,250,300],
-  'y': [300,100,200,400],
-}
-var pi = 0;
-var path = [];
-var xtra = 400;
 
 function mouseDragStart() { 
   this.game.physics.box2d.mouseDragStart(this.game.input.mousePointer); 
   console.log("pointer: " + this.input.mousePointer.worldX);
+  this.oneTime();
 }
 function mouseDragMove() {  this.game.physics.box2d.mouseDragMove(this.game.input.mousePointer); }
 function mouseDragEnd() {   this.game.physics.box2d.mouseDragEnd(); }
@@ -42,8 +32,10 @@ function mouseDragEnd() {   this.game.physics.box2d.mouseDragEnd(); }
 LastRide.playState.prototype = {
 
   init: function() {
-    this.game.renderer.renderSession.roundPixels = true;
+    // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
+
+    var bill = new Car();
   },
 
   create: function() {
@@ -74,13 +66,12 @@ LastRide.playState.prototype = {
     this.test = this.game.add.sprite(0,0, 'firstaid');
     this.game.physics.box2d.enable(this.test);
 
-    this.ground = this.game.add.sprite(0, 580, 'ground');
-    this.ground.scale.setTo(50,1);
-    this.game.physics.box2d.enable(this.ground);
-    this.ground.body.static = true;
+    // this.ground = this.game.add.sprite(0, 580, 'ground');
+    // this.ground.scale.setTo(50,1);
+    // this.game.physics.box2d.enable(this.ground);
+    // this.ground.body.static = true;
 
     this.createWall();
-    this.drawGround();
     this.createCar();
     this.newGround();
   
@@ -95,14 +86,9 @@ LastRide.playState.prototype = {
     this.torqueMetre.fixedToCamera = true;
     
     this.game.camera.follow(this.carBody);
-    // LastRide.Line(200,100,900,200);
   },
   oneTime: function() {
     console.log("ONETIME!");
-    xtra = xtra+50;
-    // points.x.push(xtra);
-    // points.y.push(400);
-    // this.drawGround();
 
     // trackVertices.push(xtra);
     // trackVertices.push(xtra-700);
@@ -222,73 +208,9 @@ LastRide.playState.prototype = {
     }
   },
 
-  drawGround: function() {
-    this.bmd = this.add.bitmapData(this.world.width, this.world.height);
-    this.bmd.addToWorld();
-    
-    this.plot();
-  },
-
-  plot: function(){
-    this.bmd.clear();
-    this.path = []; 
-    console.log("points: " + points.x)
-    var x = 1 / this.game.width;
-    for (var i = 0; i <= 1; i += x) {
-      var px = this.math.linearInterpolation(points.x, i);
-      var py = this.math.linearInterpolation(points.y, i);
-      // this.math.bezierInterpolation
-      // this.math.catmullRomInterpolation
-      // this.math.linearInterpolation
-      
-      this.path.push( { x: px, y: py });
-      this.bmd.rect(px, py, 2, 2, 'rgba(255, 255, 255, 1)');
-    }
-    for (var p = 0; p < points.x.length; p++){
-      this.bmd.rect(points.x[p]-3, points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)');
-    }
-
-    this.game.physics.box2d.enable(this.path);
-    this.bmd.rect.static = true;
-    // var line;
-    // line.start = new Phaser.Point(300, 300);
-    // line.end = new Phaser.Point(600,00);
-    // line.type = Phaser.LINE;
-
-  },
-
-  newGround: function() {
-    // track = new Phaser.Physics.Box2D.Body(this.game, null, 0, 0, 0);
-    // track.setChain(trackVertices);
-    // track.friction = 0.8;
-    
+  newGround: function() {   
     johnny = new Phaser.Physics.Box2D.Body(this.game, null, 0, 0, 0);
     johnny.addChain(trackVertices, 0, trackVertices.length/2, true);
 
   }
 };
-
-// LastRide.Line = function (x1, y1, x2, y2) {
-
-//     x1 = x1 || 0;
-//     y1 = y1 || 0;
-//     x2 = x2 || 0;
-//     y2 = y2 || 0;
-
-//     /**
-//     * @property {Phaser.Point} start - The start point of the line.
-//     */
-//     this.start = new Phaser.Point(x1, y1);
-
-//     /**
-//     * @property {Phaser.Point} end - The end point of the line.
-//     */
-//     this.end = new Phaser.Point(x2, y2);
-
-//     /**
-//     * @property {number} type - The const type of this object.
-//     * @readonly
-//     */
-//     this.type = Phaser.LINE;
-
-// };

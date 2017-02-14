@@ -21,7 +21,7 @@ LastRide.loadState.prototype = {
 
     this.game.world.setBounds(0, 0, 5000, 1600);
 
-    var wKey;
+    var wKey;   
     var aKey;
     var dKey;
     var qKey;
@@ -33,6 +33,8 @@ LastRide.loadState.prototype = {
     var speed;
     var speedoMetre;
     var torqueMetre;
+
+
     
     // þetta er gagnslaust:
     this.wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);

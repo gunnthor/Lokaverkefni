@@ -16,7 +16,7 @@ LastRide.menuState.prototype = {
 		wKey.onDown.addOnce(this.start, this);
 
 		// starta strax bara..
-		// this.start(this);
+		// this.start();
 	},
 
 	start: function() {
