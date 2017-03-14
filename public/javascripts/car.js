@@ -1,19 +1,28 @@
-function Car(test) {
+function Car() {
 	console.log('erum að logga car function')
 	this.color = "red";
 	console.log(this.color);
-	console.log(this.pos.x);
+	console.log(this.deleteme.x);
 };
 
-Car.prototype.pos = {
+//objects
+Car.prototype.deleteme = {
 	x: 69,
 	y: 0
 };
 
+//attributes
 Car.prototype.color = "#FFFFFF";
 
-console.log('car.js');
 
+//functions
 Car.prototype.Jump = function() {
   console.log("Jump");
 };
+
+//carBody
+//carJoints
+//leftWheel
+//rightWheel
+
+// muna: camera follow car:

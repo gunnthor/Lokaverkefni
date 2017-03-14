@@ -29,3 +29,7 @@
 # 2 feb Setti free cam, Skoðaði hvernig væri best að hanna jörðina.
 
 # 8 feb Gerði braut fyrir bílinn með collision detection út frá vertices.
+
+# 10 mars Náði að hlaða síðunni upp á heroku. Þurfti að nota jade layout engine en ekki ejs html.
+
+# 11 setti center á canvasinn, þurfti að gera block í kringum hann og svo margin: auto

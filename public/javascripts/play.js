@@ -1,30 +1,33 @@
 var LastRide = LastRide || {};
-
 LastRide.playState = function(){
-
+console.log('LastRide.playState ?');  
 };
 
 var leftWall;
 
 var ground;
-var test;
+var firstaid;
 
 var carBody;
 var carJoints = [];
 var leftWheel;
 var rightWheel;
 
+ // var vehicle = new Car();
+
 var track;
 var trackVertices = [0, 300, 400, 300]
 var johnny;
 var newTrack = false;   
+
+var vehicle = new Car();
 
 var freecam = false;
 
 function mouseDragStart() { 
   this.game.physics.box2d.mouseDragStart(this.game.input.mousePointer); 
   console.log("pointer: " + this.input.mousePointer.worldX);
-  this.oneTime();
+  this.oneTime(this);
 }
 function mouseDragMove() {  this.game.physics.box2d.mouseDragMove(this.game.input.mousePointer); }
 function mouseDragEnd() {   this.game.physics.box2d.mouseDragEnd(); }
@@ -34,17 +37,15 @@ LastRide.playState.prototype = {
   init: function() {
     // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
-
-    var bill = new Car();
   },
 
   create: function() {
+    var vehicle = new Car();
   	// this.game.stage.backgroundColor = '#124184';
   	this.game.physics.box2d.debugDraw.joints = true;
 	  // game.physics.box2d.setBoundsToWorld();
 
   	//Prepare the keyboard to be used
-    // this.keyboard = this.game.input.keyboard;
     this.wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
     this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -63,8 +64,8 @@ LastRide.playState.prototype = {
     this.xKey.onUp.add(this.freeCam, this);
   
     // this.game.add.sprite(0,0, 'sky');
-    this.test = this.game.add.sprite(0,0, 'firstaid');
-    this.game.physics.box2d.enable(this.test);
+    this.firstaid = this.game.add.sprite(0,0, 'firstaid');
+    this.game.physics.box2d.enable(this.firstaid);
 
     // this.ground = this.game.add.sprite(0, 580, 'ground');
     // this.ground.scale.setTo(50,1);
@@ -94,6 +95,7 @@ LastRide.playState.prototype = {
     // trackVertices.push(xtra-700);
     trackVertices.push(this.game.input.mousePointer.worldX, this.game.input.mousePointer.worldY);
     newTrack = true;
+    console.log('le vehicles' + vehicle)
   },
 
   update: function() {
@@ -211,6 +213,5 @@ LastRide.playState.prototype = {
   newGround: function() {   
     johnny = new Phaser.Physics.Box2D.Body(this.game, null, 0, 0, 0);
     johnny.addChain(trackVertices, 0, trackVertices.length/2, true);
-
   }
 };

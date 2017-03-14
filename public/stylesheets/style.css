@@ -1,9 +1,20 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: teal;
+  background-color: brown;
+  margin-left: auto;*/
+  left: 50%;
+  /*margin-right: auto;*/
+  /*position: relative;*/
 }
 
 a {
   color: #00B7FF;
+}
+
+canvas {
+  display: block;
+  margin: auto;
+  
+  /*transform: translate(0, 50%);*/
 }

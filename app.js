@@ -14,8 +14,6 @@ var app = express();
 console.log("anyone?");
 
 app.set('views', path.join(__dirname, 'views'));
-// app.engine('html', require('ejs').renderFile);
-// app.set('view engine', 'html');
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
