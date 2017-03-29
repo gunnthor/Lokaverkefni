@@ -8,19 +8,19 @@ var leftWall;
 var ground;
 var firstaid;
 
-var carBody;
-var carJoints = [];
-var leftWheel;
-var rightWheel;
-
- // var vehicle = new Car();
+// var carBody;
+// var carJoints = [];
+// var leftWheel;
+// var rightWheel;
+var vehicle;
 
 var track;
 var trackVertices = [0, 300, 400, 300]
 var johnny;
 var newTrack = false;   
 
-var vehicle = new Car();
+// var vehicle = new Car(LastRide.playState);
+// vehicle.createCar();
 
 var freecam = false;
 
@@ -37,10 +37,15 @@ LastRide.playState.prototype = {
   init: function() {
     // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
+    console.log('this');
+    console.log(this);
   },
 
   create: function() {
-    var vehicle = new Car();
+    vehicle = new Car(this);
+    vehicle.createCar();
+    console.log("carjoints vehicle");
+    console.log(vehicle.carJoints[0]);
   	// this.game.stage.backgroundColor = '#124184';
   	this.game.physics.box2d.debugDraw.joints = true;
 	  // game.physics.box2d.setBoundsToWorld();
@@ -73,7 +78,7 @@ LastRide.playState.prototype = {
     // this.ground.body.static = true;
 
     this.createWall();
-    this.createCar();
+    //this.createCar();
     this.newGround();
   
     //handlers for mouse events
@@ -86,7 +91,7 @@ LastRide.playState.prototype = {
     this.speedoMetre.fixedToCamera = true;
     this.torqueMetre.fixedToCamera = true;
     
-    this.game.camera.follow(this.carBody);
+    this.game.camera.follow(vehicle.carBody);
   },
   oneTime: function() {
     console.log("ONETIME!");
@@ -126,7 +131,7 @@ LastRide.playState.prototype = {
       this.camera.y -= 10;
     }
 
-    this.speedoMetre.setText("Speed: " + (carJoints[0].GetMotorSpeed() + carJoints[1].GetMotorSpeed() )/2 ); 
+    this.speedoMetre.setText("Speed: " + (vehicle.carJoints[0].GetMotorSpeed() + vehicle.carJoints[1].GetMotorSpeed() )/2 ); 
     // this.torqueMetre.setText("Torque" + this.leftJoint.GetMotorTorque)
   },
 
@@ -141,15 +146,15 @@ LastRide.playState.prototype = {
   },
 
   carAcceleration: function(status, acceleration) {
-    var currentSpeed = ( (carJoints[0].GetMotorSpeed() + carJoints[1].GetMotorSpeed() ) /2 )
+    var currentSpeed = ( (vehicle.carJoints[0].GetMotorSpeed() + vehicle.carJoints[1].GetMotorSpeed() ) /2 )
     // var decreaseSpeed = currentSpeed/1.1;
     var decreaseSpeed = currentSpeed-1;
     for(var i = 0; i < 2; i++){
       if(acceleration) {
-        carJoints[i].EnableMotor(status);
-        carJoints[i].SetMotorSpeed(acceleration);  
+        vehicle.carJoints[i].EnableMotor(status);
+        vehicle.carJoints[i].SetMotorSpeed(acceleration);  
       } else {
-        carJoints[i].EnableMotor(false);
+        vehicle.carJoints[i].EnableMotor(false);
         // if(currentSpeed <= 1 && currentSpeed >= -1) {
         //   carJoints[i].SetMotorSpeed(0);
         // } else if(currentSpeed < -1) {
@@ -182,7 +187,6 @@ LastRide.playState.prototype = {
     var carWheels = [];
     var xPos = [-50, 50];
     
-    console.log("carJoints " + carJoints);
     for(var i = 0; i < 2; i++) {
       carWheels[i] = this.game.add.sprite(100, 100, 'star')
       this.game.physics.box2d.enable(carWheels[i]);
@@ -205,7 +209,7 @@ LastRide.playState.prototype = {
       this.game.camera.follow(null);
       console.log('freecam enabled')
     } else {
-      this.game.camera.follow(this.carBody);
+      this.game.camera.follow(vehicle.carBody);
       console.log('freecam disabled')
     }
   },
