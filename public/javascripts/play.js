@@ -1,33 +1,20 @@
 var LastRide = LastRide || {};
 LastRide.playState = function(){
-console.log('LastRide.playState ?');  
+
 };
 
 var leftWall;
 
-var ground;
 var firstaid;
+let car;
+let track;
 
-// var carBody;
-// var carJoints = [];
-// var leftWheel;
-// var rightWheel;
-var vehicle;
-
-var track;
-var trackVertices = [0, 300, 400, 300]
-var johnny;
 var newTrack = false;   
-
-// var vehicle = new Car(LastRide.playState);
-// vehicle.createCar();
-
 var freecam = false;
 
 function mouseDragStart() { 
   this.game.physics.box2d.mouseDragStart(this.game.input.mousePointer); 
   console.log("pointer: " + this.input.mousePointer.worldX);
-  this.oneTime(this);
 }
 function mouseDragMove() {  this.game.physics.box2d.mouseDragMove(this.game.input.mousePointer); }
 function mouseDragEnd() {   this.game.physics.box2d.mouseDragEnd(); }
@@ -37,15 +24,14 @@ LastRide.playState.prototype = {
   init: function() {
     // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
-    console.log('this');
-    console.log(this);
   },
 
   create: function() {
-    vehicle = new Car(this);
-    vehicle.createCar();
-    console.log("carjoints vehicle");
-    console.log(vehicle.carJoints[0]);
+    car = new Car(this);
+    car.createCar();
+
+    track = new Track(this);
+
   	// this.game.stage.backgroundColor = '#124184';
   	this.game.physics.box2d.debugDraw.joints = true;
 	  // game.physics.box2d.setBoundsToWorld();
@@ -72,52 +58,45 @@ LastRide.playState.prototype = {
     this.firstaid = this.game.add.sprite(0,0, 'firstaid');
     this.game.physics.box2d.enable(this.firstaid);
 
-    // this.ground = this.game.add.sprite(0, 580, 'ground');
-    // this.ground.scale.setTo(50,1);
-    // this.game.physics.box2d.enable(this.ground);
-    // this.ground.body.static = true;
+    //this.createWall();
 
-    this.createWall();
-    //this.createCar();
-    this.newGround();
+    track.newGround();
   
     //handlers for mouse events
     this.game.input.onDown.add(mouseDragStart, this);
     this.game.input.addMoveCallback(mouseDragMove, this);
     this.game.input.onUp.add(mouseDragEnd, this);
+    this.game.input.onTap.add(this.mouseTapped, this);
 
     this.speedoMetre = this.game.add.text(200, 5, 'Speed:', { fill: '#ffffff', font: '14pt Arial' } );
     this.torqueMetre = this.game.add.text(30, 5, 'torque:', { fill: '#ffffff', font: '14pt Arial' } );
     this.speedoMetre.fixedToCamera = true;
     this.torqueMetre.fixedToCamera = true;
     
-    this.game.camera.follow(vehicle.carBody);
+    this.game.camera.follow(car.carBody);
   },
+
+  mouseTapped: function() {
+    track.addVertices(this.game.input.mousePointer.worldX,
+     this.game.input.mousePointer.worldY);
+  },
+
   oneTime: function() {
     console.log("ONETIME!");
-
-    // trackVertices.push(xtra);
-    // trackVertices.push(xtra-700);
-    trackVertices.push(this.game.input.mousePointer.worldX, this.game.input.mousePointer.worldY);
-    newTrack = true;
-    console.log('le vehicles' + vehicle)
+    track.split();
   },
 
   update: function() {
-    if(newTrack) {
-      johnny.setChain(trackVertices);
-      newTrack = false;
-    }
+    track.update();
 
     if(this.aKey.isDown) {
-      this.carAcceleration('on', -50);
+      car.carAcceleration('on', -50);
     } else if(this.dKey.isDown) {
-      this.carAcceleration('on', 50);
+      car.carAcceleration('on', 50);
     } else if(this.sKey.isDown) {
-      this.carAcceleration('on', 0);
-      console.log("skey");
+      car.carAcceleration('on', 0);
     } else {
-      this.carAcceleration('off', false );
+      car.carAcceleration('off', false );
     }
     
     if(this.cursors.left.isDown) {
@@ -131,13 +110,13 @@ LastRide.playState.prototype = {
       this.camera.y -= 10;
     }
 
-    this.speedoMetre.setText("Speed: " + (vehicle.carJoints[0].GetMotorSpeed() + vehicle.carJoints[1].GetMotorSpeed() )/2 ); 
+    this.speedoMetre.setText("Speed: " + (car.carJoints[0].GetMotorSpeed() + car.carJoints[1].GetMotorSpeed() )/2 ); 
     // this.torqueMetre.setText("Torque" + this.leftJoint.GetMotorTorque)
   },
 
   render: function() {
   	this.game.debug.box2dWorld();
-    this.game.debug.cameraInfo(this.game.camera, 32, 32);
+    this.game.debug.cameraInfo(this.game.camera, 500, 32);
   },
 
   //á að vera stórt W?
@@ -145,27 +124,6 @@ LastRide.playState.prototype = {
     this.state.start('win');
   },
 
-  carAcceleration: function(status, acceleration) {
-    var currentSpeed = ( (vehicle.carJoints[0].GetMotorSpeed() + vehicle.carJoints[1].GetMotorSpeed() ) /2 )
-    // var decreaseSpeed = currentSpeed/1.1;
-    var decreaseSpeed = currentSpeed-1;
-    for(var i = 0; i < 2; i++){
-      if(acceleration) {
-        vehicle.carJoints[i].EnableMotor(status);
-        vehicle.carJoints[i].SetMotorSpeed(acceleration);  
-      } else {
-        vehicle.carJoints[i].EnableMotor(false);
-        // if(currentSpeed <= 1 && currentSpeed >= -1) {
-        //   carJoints[i].SetMotorSpeed(0);
-        // } else if(currentSpeed < -1) {
-        //   console.log("this?");
-        //   carJoints[i].SetMotorSpeed(currentSpeed + 0.5 );  
-        // } else {
-        //   carJoints[i].SetMotorSpeed(currentSpeed - 0.5);
-        // }
-      }
-    }
-  },
 
   createWall: function() {
     console.log('wall?')
@@ -177,27 +135,6 @@ LastRide.playState.prototype = {
     this.game.physics.box2d.enable(this.leftWall);
   },
 
-  createCar: function() {
-    //IMPLEMENTATION OF CAR
-    this.carBody = this.game.add.sprite(100, 100, 'phaser');
-    this.game.physics.box2d.enable(this.carBody);
-    console.log(this.carBody.collideWorldBounds);
-    // this.carBody = new Phaser.Physics.Box2D.Body(this.game, 'phaser', 0, -50);
-    
-    var carWheels = [];
-    var xPos = [-50, 50];
-    
-    for(var i = 0; i < 2; i++) {
-      carWheels[i] = this.game.add.sprite(100, 100, 'star')
-      this.game.physics.box2d.enable(carWheels[i]);
-      carWheels[i].body.setCircle(carWheels[i].width/2);
-      carWheels[i].friction = 1;
-      carWheels[i].xPos = xPos[i];
-                                     // bodyA, bodyB, ax, ay, bx, by, axisX, axisY, frequency, damping, motorSpeed, motorTorque, motorEnabled
-      carJoints[i] = this.game.physics.box2d.wheelJoint(this.carBody, carWheels[i], carWheels[i].xPos,35,0,0,0,1,
-       3, 1, 0, 100, true);
-    };
-  },
   torque: function(value) {
     this.leftJoint.SetMotorTorque(this.leftJoint.GetMotorTorque() + value);
     this.rightJoint.SetMotorTorque(this.rightJoint.GetMotorTorque() + value);
@@ -209,13 +146,14 @@ LastRide.playState.prototype = {
       this.game.camera.follow(null);
       console.log('freecam enabled')
     } else {
-      this.game.camera.follow(vehicle.carBody);
+      this.game.camera.follow(car.carBody);
       console.log('freecam disabled')
     }
   },
 
-  newGround: function() {   
-    johnny = new Phaser.Physics.Box2D.Body(this.game, null, 0, 0, 0);
-    johnny.addChain(trackVertices, 0, trackVertices.length/2, true);
-  }
+  // newGround: function() {   
+  //   nodes = new Phaser.Physics.Box2D.Body(this.game, null, 0, 0, 0);
+  //   nodes.addChain(trackVertices, 0, trackVertices.length/2, true);
+  // }
+
 };

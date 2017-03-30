@@ -32,4 +32,6 @@
 
 # 10 mars Náði að hlaða síðunni upp á heroku. Þurfti að nota jade layout engine en ekki ejs html.
 
-# 11 setti center á canvasinn, þurfti að gera block í kringum hann og svo margin: auto
+# 11 mars setti center á canvasinn, þurfti að gera block í kringum hann og svo margin: auto
+
+# 30 mars. Bætti við track.js og núna þarf brautin ekki lengur að öll samtengd heldur hægt að tekna hana í bútum.
