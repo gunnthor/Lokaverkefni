@@ -60,7 +60,7 @@ LastRide.playState.prototype = {
 
     //this.createWall();
 
-    track.newGround();
+    track.firstGround();
   
     //handlers for mouse events
     this.game.input.onDown.add(mouseDragStart, this);
@@ -83,7 +83,7 @@ LastRide.playState.prototype = {
 
   oneTime: function() {
     console.log("ONETIME!");
-    track.split();
+    track.split(this.game.input.mousePointer.worldX, this.game.input.mousePointer.worldY);
   },
 
   update: function() {
