@@ -4,11 +4,19 @@ function Track(game) {
   
   this.trackVertices = [0, 300, 400, 300]; //[X0,Y0,X1,Y2,...,XxYx]
 
-  console.log("track");
   this.newTrack = false;
   this.nodes = [];
   this.currentTrack = 0;
   this.initializeNew = false;
+}
+
+Track.prototype.statusDebug = function(msg){
+  console.log(msg);
+  console.log("trackVertices: " + this.trackVertices);
+  console.log("currentTrack: " + this.currentTrack);
+  console.log("this.nodes[this.currentTrack]: " );
+  console.log(this.nodes[this.currentTrack]);
+  
 }
 
 Track.prototype.update = function() {
@@ -18,6 +26,47 @@ Track.prototype.update = function() {
     this.newTrack = false;
     console.log(this.nodes);
   }
+}
+
+Track.prototype.split = function(x,y) {
+  this.initializeNew = true;
+  this.currentTrack++;
+  console.log("split!");
+  console.log(this.trackVertices);
+  this.trackVertices = [];
+}
+
+Track.prototype.removeChain = function() {
+  this.trackVertices = [];
+  this.statusDebug("Beginning of removeChain");
+
+  if(this.nodes[this.currentTrack]) {
+    //this.nodes[x] er braut.
+    console.log("1");
+    this.nodes[this.currentTrack].setChain(this.trackVertices)
+    this.currentTrack--;
+  } else if(this.currentTrack >= 0) {
+
+    //this.nodes[x] er kannski braut.
+    //this.nodes[x] >= 0.
+    console.log("2");
+    this.currentTrack--;
+
+    console.log("this.nodes after -- " + this.nodes[this.currentTrack]);
+    console.log(this.nodes[this.currentTrack]);
+    this.nodes[this.currentTrack].setChain([])  
+  } else {
+    //this.currentTrack er minna en 0
+    console.log("3");
+    console.log("Current track is below 0");;
+  }
+
+  this.statusDebug("Endinga of removeChain");
+
+}
+
+Track.prototype.removeVertex = function() {
+  
 }
 
 Track.prototype.addVertices = function(xMouse, yMouse) {
@@ -39,20 +88,15 @@ Track.prototype.addVertices = function(xMouse, yMouse) {
 
 
 
-Track.prototype.split = function(x,y) {
-  this.initializeNew = true;
-  this.currentTrack++;
+Track.prototype.drawTrack = function(map) {
+
+  for(var i = 0; i <= map.length; i++ ){
+    this.nodes[this.currentTrack] = new Phaser.Physics.Box2D.Body(this.game, null, 0, 0, 0);
+    this.nodes[this.currentTrack].setChain(map[i]);
+    this.currentTrack++;
+    // this.split();
+  }
   this.trackVertices = [];
-  //this.addVertices();
-  
-  
-}
+  this.currentTrack = map.length;
 
-
-// Logic: Setja vertices i fylki uns ýtt er á takka,
-// þá skal búa til nýtt fylki og setja næstu vertices 
-// í það fylki.
-Track.prototype.firstGround = function() {
-  this.nodes[0] = new Phaser.Physics.Box2D.Body(this.game, null, 10, 0, 0);
-  this.nodes[this.currentTrack].addChain(this.trackVertices, 0, this.trackVertices.length/2, true);
 }

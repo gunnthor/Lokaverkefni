@@ -8,6 +8,7 @@ var leftWall;
 var firstaid;
 let car;
 let track;
+let vertices;
 
 var newTrack = false;   
 var freecam = false;
@@ -22,15 +23,43 @@ function mouseDragEnd() {   this.game.physics.box2d.mouseDragEnd(); }
 LastRide.playState.prototype = {
 
   init: function() {
+    track = new Track(this);
     // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
+
+    if (window.jQuery) {  
+        // jQuery is loaded  
+        // alert("Yeah!");
+    } else {
+        // jQuery is not loaded
+        alert("jQuery Doesn't Work");
+    }
+
+    //draw map herna?
+    console.log("vertiies :D");
+
+    $.ajax({
+      url: '/test',
+      data: {
+        format: 'json'
+      },
+      error: function() {
+        console.log("error í ajax request");
+      },
+      dataType: 'text',
+      success: function(data) {
+        var tmp = JSON.parse(data);
+        track.drawTrack(tmp.vertices);
+      },
+      type: 'GET'
+    });
   },
 
   create: function() {
     car = new Car(this);
     car.createCar();
 
-    track = new Track(this);
+    // track = new Track(this);
 
   	// this.game.stage.backgroundColor = '#124184';
   	this.game.physics.box2d.debugDraw.joints = true;
@@ -42,6 +71,7 @@ LastRide.playState.prototype = {
     this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
     this.dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     this.qKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Q);
+    this.rKey = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
     this.zKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Z);
@@ -53,6 +83,7 @@ LastRide.playState.prototype = {
     this.qKey.onDown.add(this.oneTime, this);
     this.zKey.onDown.add(this.torque, this, 0, 0.5);
     this.xKey.onUp.add(this.freeCam, this);
+    this.rKey.onDown.add(this.magicButton, this);
   
     // this.game.add.sprite(0,0, 'sky');
     this.firstaid = this.game.add.sprite(0,0, 'firstaid');
@@ -60,13 +91,13 @@ LastRide.playState.prototype = {
 
     //this.createWall();
 
-    track.firstGround();
-  
+ 
     //handlers for mouse events
     this.game.input.onDown.add(mouseDragStart, this);
     this.game.input.addMoveCallback(mouseDragMove, this);
     this.game.input.onUp.add(mouseDragEnd, this);
     this.game.input.onTap.add(this.mouseTapped, this);
+
 
     this.speedoMetre = this.game.add.text(200, 5, 'Speed:', { fill: '#ffffff', font: '14pt Arial' } );
     this.torqueMetre = this.game.add.text(30, 5, 'torque:', { fill: '#ffffff', font: '14pt Arial' } );
@@ -74,6 +105,26 @@ LastRide.playState.prototype = {
     this.torqueMetre.fixedToCamera = true;
     
     this.game.camera.follow(car.carBody);
+
+// var theMap = 
+// [
+//   [0,300,400,300,716,295.5,1015,295.5,1218,212.5],
+//   [1500.5,209.5,1589.5,288.5,1836.5,286.5,2150.5,279.5],
+//   [2379.5,351.5,2682.5,347.5,2807.5,269.5,2833.5,191.5,2796.5,89.5,2684.5,59.5,2650.5,54.5],
+//   [2380.5, 352.5, 2304.5, 501.5, 2131.5, 576.5, 1878.5, 593.5, 1627.5, 592.5, 1548.5, 513.5]
+// ]
+
+  var theMap =
+  [
+    [0, 300,400,300,716,295.5],
+    [0,400,400,400,718,400],
+    [0,500,400,500,718,500],
+    [0,600,400,600,718,600]
+  ]
+  // var testaJSON = JSON.parse()
+  // track.drawTrack(vertices);
+
+
   },
 
   mouseTapped: function() {
@@ -84,6 +135,11 @@ LastRide.playState.prototype = {
   oneTime: function() {
     console.log("ONETIME!");
     track.split(this.game.input.mousePointer.worldX, this.game.input.mousePointer.worldY);
+  },
+
+  magicButton: function() {
+    console.log("Magic");
+    track.removeChain();
   },
 
   update: function() {
@@ -150,10 +206,4 @@ LastRide.playState.prototype = {
       console.log('freecam disabled')
     }
   },
-
-  // newGround: function() {   
-  //   nodes = new Phaser.Physics.Box2D.Body(this.game, null, 0, 0, 0);
-  //   nodes.addChain(trackVertices, 0, trackVertices.length/2, true);
-  // }
-
 };

@@ -35,3 +35,10 @@
 # 11 mars setti center á canvasinn, þurfti að gera block í kringum hann og svo margin: auto
 
 # 30 mars. Bætti við track.js og núna þarf brautin ekki lengur að öll samtengd heldur hægt að tekna hana í bútum.
+
+# 2 April. Skrifaði fall sem tekur inn fylki af fylkjum sem inniheldur vertices og teiknar upp braut eftir þeim.
+
+# 10 April. Setti upp postgres
+
+# 11 April. Fikta í postgres náði connection við databaseinn.
+
