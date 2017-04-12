@@ -45,6 +45,12 @@ LastRide.playState.prototype = {
       },
       error: function() {
         console.log("error í ajax request");
+        track.drawTrack([
+    [0, 300,400,300,716,295.5],
+    [0,400,400,400,718,400],
+    [0,500,400,500,718,500],
+    [0,600,400,600,718,600]
+  ])
       },
       dataType: 'text',
       success: function(data) {
