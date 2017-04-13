@@ -50,6 +50,8 @@ var database = function() {
     // between your application and the database, the database restarts, etc.
     // and so you might want to handle it and at least log it out
     console.error('idle client error', err.message, err.stack)
+    console.log("CONNECTED!")
+    console.log(client);
   })
 
   const POOL_ERROR = {message: 'error fetching client from pool', code: 500};
