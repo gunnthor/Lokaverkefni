@@ -50,8 +50,6 @@ var database = function() {
     // between your application and the database, the database restarts, etc.
     // and so you might want to handle it and at least log it out
     console.error('idle client error', err.message, err.stack)
-    console.log("CONNECTED!")
-    console.log(client);
   })
 
   const POOL_ERROR = {message: 'error fetching client from pool', code: 500};
@@ -80,7 +78,7 @@ var database = function() {
     pool.connect(function(err,client,done){
       if(err) return console.error('error fetching client from pool', err);
 
-      var checkQuery = client.query('SELECT data FROM maps where id = 3');
+      var checkQuery = client.query('SELECT data FROM maps where id = 1');
 
       checkQuery.on('row', function(row, result){
         console.log('row í row:');

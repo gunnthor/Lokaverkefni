@@ -29,29 +29,30 @@ LastRide.playState.prototype = {
     //draw map herna?
     console.log("vertiies :D");
 
-    // $.ajax({
-    //   url: '/getTrack',
-    //   data: {
-    //     format: 'json'
-    //   },
-    //   error: function() {
-    //     console.log("error í ajax request");
-    //     track.drawTrack(
-    //       [
-    //         [0, 300,400,300,716,295.5],
-    //         [0,400,400,400,718,400],
-    //         [0,500,400,500,718,500],
-    //         [0,600,400,600,718,600]
-    //       ]
-    //     )
-    //   },
-    //   dataType: 'text',
-    //   success: function(data) {
-    //     var tmp = JSON.parse(data);
-    //     track.drawTrack(tmp.vertices);
-    //   },
-    //   type: 'GET'
-    // });
+    $.ajax({
+      url: '/getTrack',
+      data: {
+        format: 'json'
+      },
+      error: function() {
+        console.log("error í ajax request");
+        console.log("loada placeholder track: ");
+        track.drawTrack(
+          [
+            [0, 300,400,300,716,295.5],
+            [0,400,400,400,718,400],
+            [0,500,400,500,718,500],
+            [0,600,400,600,718,600]
+          ]
+        )
+      },
+      dataType: 'text',
+      success: function(data) {
+        var tmp = JSON.parse(data);
+        track.drawTrack(tmp.vertices);
+      },
+      type: 'GET'
+    });
   },
 
   create: function() {
