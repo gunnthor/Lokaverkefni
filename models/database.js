@@ -13,6 +13,8 @@ var database = function() {
   const auth = params.auth.split(':');
   console.log("process.env.DATABASE_URL");
   console.log(process.env.DATABASE_URL);
+  console.log("url.parse gefur: ");
+  console.log(params)
 
   const config = {
     user: auth[0],
