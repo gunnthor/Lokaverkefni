@@ -11,8 +11,8 @@ var database = function() {
 //Connection to Heroku PostgreSQL
   const params = url.parse(process.env.DATABASE_URL);
   const auth = params.auth.split(':');
-  // console.log("process.env.DATABASE_URL");
-  // console.log(process.env.DATABASE_URL);
+  console.log("process.env.DATABASE_URL");
+  console.log(process.env.DATABASE_URL);
 
   const config = {
     user: auth[0],
