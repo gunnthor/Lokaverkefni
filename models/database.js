@@ -8,14 +8,32 @@ var database = function() {
   const env_db_loc = process.env.DATABASE_URL;
   const db_loc = 'onelastride' || process.env.DATABASE_URL;
 
-  var config = {
-    user: 'postgres', //env var: PGUSER 
-    database: db_loc, //env var: PGDATABASE 
-    password: 'root', //env var: PGPASSWORD 
-    port: 5432, //env var: PGPORT 
-    max: 20, // max number of clients in the pool 
-    idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
+//Connection to Heroku PostgreSQL
+  const params = url.parse(process.env.DATABASE_URL);
+  const auth = params.auth.split(':');
+  // console.log("process.env.DATABASE_URL");
+  // console.log(process.env.DATABASE_URL);
+
+  const config = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1],
+    ssl: true
   };
+
+
+
+//Connection to Local PostgreSQL
+  // var config = {
+  //   user: 'postgres', //env var: PGUSER 
+  //   database: db_loc, //env var: PGDATABASE 
+  //   password: 'root', //env var: PGPASSWORD 
+  //   port: 5432, //env var: PGPORT 
+  //   max: 20, // max number of clients in the pool 
+  //   idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
+  // };
 
   //this initializes a connection pool
   //it will keep idle connections open for 30 seconds

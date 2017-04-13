@@ -3,14 +3,11 @@ LastRide.playState = function(){
 
 };
 
-var leftWall;
-
 var firstaid;
 let car;
 let track;
 let vertices;
-
-var newTrack = false;   
+  
 var freecam = false;
 
 function mouseDragStart() { 
@@ -27,30 +24,26 @@ LastRide.playState.prototype = {
     // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
 
-    if (window.jQuery) {  
-        // jQuery is loaded  
-        // alert("Yeah!");
-    } else {
-        // jQuery is not loaded
-        alert("jQuery Doesn't Work");
-    }
+    if (!window.jQuery) alert("jQuery Doesn't Work");
 
     //draw map herna?
     console.log("vertiies :D");
 
     $.ajax({
-      url: '/test',
+      url: '/getTrack',
       data: {
         format: 'json'
       },
       error: function() {
         console.log("error í ajax request");
-        track.drawTrack([
-    [0, 300,400,300,716,295.5],
-    [0,400,400,400,718,400],
-    [0,500,400,500,718,500],
-    [0,600,400,600,718,600]
-  ])
+        track.drawTrack(
+          [
+            [0, 300,400,300,716,295.5],
+            [0,400,400,400,718,400],
+            [0,500,400,500,718,500],
+            [0,600,400,600,718,600]
+          ]
+        )
       },
       dataType: 'text',
       success: function(data) {
@@ -95,8 +88,6 @@ LastRide.playState.prototype = {
     this.firstaid = this.game.add.sprite(0,0, 'firstaid');
     this.game.physics.box2d.enable(this.firstaid);
 
-    //this.createWall();
-
  
     //handlers for mouse events
     this.game.input.onDown.add(mouseDragStart, this);
@@ -120,13 +111,13 @@ LastRide.playState.prototype = {
 //   [2380.5, 352.5, 2304.5, 501.5, 2131.5, 576.5, 1878.5, 593.5, 1627.5, 592.5, 1548.5, 513.5]
 // ]
 
-  var theMap =
-  [
-    [0, 300,400,300,716,295.5],
-    [0,400,400,400,718,400],
-    [0,500,400,500,718,500],
-    [0,600,400,600,718,600]
-  ]
+  // var theMap =
+  // [
+  //   [0, 300,400,300,716,295.5],
+  //   [0,400,400,400,718,400],
+  //   [0,500,400,500,718,500],
+  //   [0,600,400,600,718,600]
+  // ]
   // var testaJSON = JSON.parse()
   // track.drawTrack(vertices);
 
@@ -184,17 +175,6 @@ LastRide.playState.prototype = {
   //á að vera stórt W?
   win: function() {
     this.state.start('win');
-  },
-
-
-  createWall: function() {
-    console.log('wall?')
-    this.leftWall = new Phaser.Physics.Box2D.Body(this.game, null, 500, 350, 0.5);
-    this.leftWall.setRectangle(100, 400, 200, 250, 240);
-    this.leftWall.static = true;
-    this.leftWall.backgroundColor = 'red';
-    this.leftWall.color = 'red'
-    this.game.physics.box2d.enable(this.leftWall);
   },
 
   torque: function(value) {

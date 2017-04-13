@@ -11,13 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-
-// database.getTrackIds(function(){console.log("cb?")});
-
-
-
-
-router.get('/test', function(req, res, next){
+router.get('/getTrack', function(req, res, next){
 
   database.selectQuery( (data)=>{
     res.send(data);
