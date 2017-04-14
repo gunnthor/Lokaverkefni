@@ -8,7 +8,7 @@ var database = function() {
   const env_db_loc = process.env.DATABASE_URL;
   const db_loc = 'onelastride' || process.env.DATABASE_URL;
 
-  if(env_db_loc) {
+  // if(env_db_loc) {
     const params = url.parse(process.env.DATABASE_URL);
     const auth = params.auth.split(':');
 
@@ -21,17 +21,17 @@ var database = function() {
       database: params.pathname.split('/')[1],
       ssl: true
     };
-  } else {
-    //Connection to Local PostgreSQL
-    var config = {
-      user: 'postgres', //env var: PGUSER 
-      database: db_loc, //env var: PGDATABASE 
-      password: 'root', //env var: PGPASSWORD 
-      port: 5432, //env var: PGPORT  							MUNA BREYTA!
-      max: 20, // max number of clients in the pool 
-      idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
-    };
-  }  
+  // } else {
+  //   //Connection to Local PostgreSQL
+  //   var config = {
+  //     user: 'postgres', //env var: PGUSER 
+  //     database: db_loc, //env var: PGDATABASE 
+  //     password: 'root', //env var: PGPASSWORD 
+  //     port: 5432, //env var: PGPORT  							MUNA BREYTA!
+  //     max: 20, // max number of clients in the pool 
+  //     idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
+  //   };
+  // }  
 
 
 
