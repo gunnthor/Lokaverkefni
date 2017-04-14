@@ -2,20 +2,21 @@ doctype html
 html
   head
     title= title
-    script(type="text/javascript" src="/javascripts/phaser.min.js")
-    script(type="text/javascript" src="/javascripts/box2d-plugin-full.js")
-    script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
+    script(type="text/javascript" src="/javascripts/utils/phaser.min.js")
+    script(type="text/javascript" src="/javascripts/utils/box2d-plugin-full.js")
+    script(type="text/javascript" src="/javascripts/utils/jquery-3.2.1.min.js")
     
     script(src="/javascripts/vertices.json")
 
-    script(src="/javascripts/boot.js")
-    script(src="/javascripts/load.js")
-    script(src="/javascripts/menu.js")
+    script(src="/javascripts/states/boot.js")
+    script(src="/javascripts/states/load.js")
+    script(src="/javascripts/states/menu.js")
     script(src="/javascripts/car.js")
     script(src="/javascripts/track.js")
-    script(src="/javascripts/play.js")
-    script(src="/javascripts/win.js")
-    script(src="/javascripts/game.js")
+    script(src="/javascripts/states/editor.js")
+    script(src="/javascripts/states/play.js")
+    script(src="/javascripts/states/win.js")
+    script(src="/javascripts/states/game.js")
 
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='icon', href='images/diamond.png')

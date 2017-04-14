@@ -1,8 +1,8 @@
 var LastRide = LastRide || {};
 
-LastRide.bootState = function(){};
+LastRide.boot = function(){};
 
-LastRide.bootState.prototype = {
+LastRide.boot.prototype = {
 	preload: function() {
       this.load.image('diamond', 'images/diamond.png');
 	},

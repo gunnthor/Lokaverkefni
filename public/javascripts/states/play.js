@@ -1,5 +1,5 @@
 var LastRide = LastRide || {};
-LastRide.playState = function(){
+LastRide.play = function(){
 
 };
 
@@ -17,7 +17,7 @@ function mouseDragStart() {
 function mouseDragMove() {  this.game.physics.box2d.mouseDragMove(this.game.input.mousePointer); }
 function mouseDragEnd() {   this.game.physics.box2d.mouseDragEnd(); }
 
-LastRide.playState.prototype = {
+LastRide.play.prototype = {
 
   init: function() {
     track = new Track(this);
@@ -50,6 +50,7 @@ LastRide.playState.prototype = {
       success: function(data) {
         var tmp = JSON.parse(data);
         track.drawTrack(tmp.vertices);
+        trackLoaded = true;
       },
       type: 'GET'
     });

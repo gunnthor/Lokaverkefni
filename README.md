@@ -42,3 +42,6 @@
 
 # 11 April. Fikta í postgres náði connection við databaseinn.
 
+# 12 April. PostgreSQL tengt við localhost server.
+
+# 13 April. Heroku PostgreSQL tengt við leikinn, notast við ajax.

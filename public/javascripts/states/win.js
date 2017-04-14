@@ -1,4 +1,4 @@
-var winState = {
+var win = {
   create: function() {
 
   	var wKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
