@@ -16,9 +16,9 @@ Car.prototype.deleteme = {
 Car.prototype.color = "#FFFFFF";
 
 //functions
-Car.prototype.createCar = function() {
+Car.prototype.createCar = function(mouseX, mouseY) {
 
-  this.carBody = this.game.add.sprite(200, 200, 'phaser');
+  this.carBody = this.game.add.sprite(mouseX, mouseY, 'phaser');
   this.game.physics.box2d.enable(this.carBody);
 
   var carWheels = [];
@@ -26,7 +26,7 @@ Car.prototype.createCar = function() {
     
   for(var i = 0; i < 2; i++) {
 
-    carWheels[i] = this.game.add.sprite(100, 100, 'star')
+    carWheels[i] = this.game.add.sprite(mouseX-100, mouseY-100, 'star')
     this.game.physics.box2d.enable(carWheels[i]);
     carWheels[i].body.setCircle(carWheels[i].width/2);
     carWheels[i].friction = 1;
@@ -38,15 +38,15 @@ Car.prototype.createCar = function() {
 }
 
 Car.prototype.carAcceleration = function(status, acceleration) {
-  var currentSpeed = ( (car.carJoints[0].GetMotorSpeed() + car.carJoints[1].GetMotorSpeed() ) /2 )
+  var currentSpeed = ( (this.carJoints[0].GetMotorSpeed() + this.carJoints[1].GetMotorSpeed() ) /2 )
   // var decreaseSpeed = currentSpeed/1.1;
   var decreaseSpeed = currentSpeed-1;
   for(var i = 0; i < 2; i++){
     if(acceleration) {
-      car.carJoints[i].EnableMotor(status);
-      car.carJoints[i].SetMotorSpeed(acceleration);  
+      this.carJoints[i].EnableMotor(status);
+      this.carJoints[i].SetMotorSpeed(acceleration);  
     } else {
-      car.carJoints[i].EnableMotor(false);
+      this.carJoints[i].EnableMotor(false);
       // if(currentSpeed <= 1 && currentSpeed >= -1) {
       //   carJoints[i].SetMotorSpeed(0);
       // } else if(currentSpeed < -1) {
