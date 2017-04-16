@@ -8,7 +8,7 @@ function Track(game) {
   this.allVertices = [];
   this.currentTrack = 0;
   this.initializeNew = true;
-  this.startingPointLocation =[];
+  this.startingPointLocation = [];
   this.finishPointLocation = [];
 }
 
@@ -124,5 +124,9 @@ Track.prototype.saveMapInfo = function() {
     finishPoint: this.finishPointLocation,
     vertices: this.allVertices
   }
-  return info;
+  console.log("info sent fra track.js");
+  // console.log(info);
+  var jsonInfo = JSON.stringify(info);
+  // console.log(jsonInfo);
+  return jsonInfo;
 }

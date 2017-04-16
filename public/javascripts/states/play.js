@@ -4,7 +4,7 @@ LastRide.play = function(){
 };
 
 var firstaid;
-let car;
+// let car
 let track;
 let vertices;
   
@@ -21,14 +21,17 @@ LastRide.play.prototype = {
 
   init: function() {
     track = new Track(this);
+    this.car = new Car(this);
+    this.car.exists = false;
     // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
+    this.startingPoint = [];
 
     if (!window.jQuery) alert("jQuery Doesn't Work");
 
     //draw map herna?
     console.log("vertiies :D");
-
+    var that = this;
     $.ajax({
       url: '/getTrack',
       data: {
@@ -51,14 +54,16 @@ LastRide.play.prototype = {
         var tmp = JSON.parse(data);
         track.drawTrack(tmp.vertices);
         trackLoaded = true;
+        that.startingPoint = tmp.startingPoint;
+        that.car.createCar(that.startingPoint[0], that.startingPoint[1]);
+        that.car.exists = true;
       },
       type: 'GET'
     });
   },
 
   create: function() {
-    car = new Car(this);
-    car.createCar();
+    
 
     // track = new Track(this);
 
@@ -103,7 +108,7 @@ LastRide.play.prototype = {
     this.speedoMetre.fixedToCamera = true;
     this.torqueMetre.fixedToCamera = true;
     
-    this.game.camera.follow(car.carBody);
+    this.game.camera.follow(this.car.carBody);
 
 // var theMap = 
 // [
@@ -143,16 +148,19 @@ LastRide.play.prototype = {
 
   update: function() {
     track.update();
-
-    if(this.aKey.isDown) {
-      car.carAcceleration('on', -50);
-    } else if(this.dKey.isDown) {
-      car.carAcceleration('on', 50);
-    } else if(this.sKey.isDown) {
-      car.carAcceleration('on', 0);
-    } else {
-      car.carAcceleration('off', false );
+    console.log(this.car.exists);
+    if(this.car.exists) {
+      if(this.aKey.isDown) {
+        this.car.carAcceleration('on', -50);
+      } else if(this.dKey.isDown) {
+        this.car.carAcceleration('on', 50);
+      } else if(this.sKey.isDown) {
+        this.car.carAcceleration('on', 0);
+      } else {
+        this.car.carAcceleration('off', false );
+      }
     }
+    
     
     if(this.cursors.left.isDown) {
       this.camera.x -= 10;
@@ -165,7 +173,7 @@ LastRide.play.prototype = {
       this.camera.y -= 10;
     }
 
-    this.speedoMetre.setText("Speed: " + (car.carJoints[0].GetMotorSpeed() + car.carJoints[1].GetMotorSpeed() )/2 ); 
+    // this.speedoMetre.setText("Speed: " + (car.carJoints[0].GetMotorSpeed() + car.carJoints[1].GetMotorSpeed() )/2 ); 
     // this.torqueMetre.setText("Torque" + this.leftJoint.GetMotorTorque)
   },
 
@@ -190,7 +198,7 @@ LastRide.play.prototype = {
       this.game.camera.follow(null);
       console.log('freecam enabled')
     } else {
-      this.game.camera.follow(car.carBody);
+      this.game.camera.follow(this.car.carBody);
       console.log('freecam disabled')
     }
   },

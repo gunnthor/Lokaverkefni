@@ -51,8 +51,19 @@ var database = function() {
   })
 
   const POOL_ERROR = {message: 'error fetching client from pool', code: 500};
+
+  this.hearMe = function(data) {
+
+    console.log("melt it down just a little:");
+    // console.log(JSON.parse(data.info));
+    var information = JSON.parse(data.info);
+    console.log(information.startingPoint);
+    console.log(information.finishPoint);
+    console.log(information.vertices);
+  }
   
-  this.insertData = function(){
+  this.insertData = function(jsonData){
+    var information = JSON.parse(jsonData.info);
     pool.connect(function(err, client, done) {
       if (err) {
         //throw POOL_ERROR;
@@ -64,7 +75,7 @@ var database = function() {
 
       //client.query(statement,data);
 
-      var insertionQuery = client.query(statement, [1, [{"Vertices": [31,33,22,55]}] ]);
+      var insertionQuery = client.query(statement, [information]);
       insertionQuery.on('end', function(result) {
         console.log(result);               
       });
@@ -76,7 +87,7 @@ var database = function() {
     pool.connect(function(err,client,done){
       if(err) return console.error('error fetching client from pool', err);
 
-      var checkQuery = client.query('SELECT data FROM maps where id = 1');
+      var checkQuery = client.query('SELECT data FROM maps where id = 5');
 
       checkQuery.on('row', function(row, result){
         console.log('row í row:');

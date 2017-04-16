@@ -19,6 +19,17 @@ router.get('/getTrack', function(req, res, next){
 
 });
 
+router.post('/saveTrack', function(req, res, next){
+	console.log('router tekur við info og það segir:');
+	console.log(req.body);
+
+	database.insertData(req.body);
+
+  // database.insertData( (data)=>{
+  //   res.send(data);
+  // });
+
+});
 
 
 

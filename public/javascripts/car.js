@@ -4,6 +4,7 @@ function Car(game) {
 	this.carJoints = [];
 	this.leftWheel;
 	this.rightWheel;
+  this.carExists = false;
 };
 
 //objects
@@ -35,6 +36,10 @@ Car.prototype.createCar = function(mouseX, mouseY) {
     this.carJoints[i] = this.game.physics.box2d.wheelJoint(this.carBody, carWheels[i], carWheels[i].xPos,35,0,0,0,1,
      3, 1, 0, 100, true);
   };
+}
+
+Car.prototype.real = function() {
+  this.carExists = true;
 }
 
 Car.prototype.carAcceleration = function(status, acceleration) {

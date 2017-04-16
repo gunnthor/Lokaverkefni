@@ -172,7 +172,25 @@ LastRide.editor.prototype = {
   },
   saveMap: function() {
     var info = this.track.saveMapInfo()
-    if(!info) return;
+    console.log("info áður en það er sent með ajax");
     console.log(info);
+    if(!info) return;
+    
+    $.ajax({
+      type: 'POST',
+      url: '/saveTrack',
+      data: {info:info},
+      error: function() {
+        console.log("error í saveMap ajax request");
+      },
+
+      dataType: 'text',
+      success: function(data) {
+        // var tmp = JSON.parse(data);
+        // track.drawTrack(tmp.vertices);
+        // trackLoaded = true;
+        console.log("success");
+      },
+    });
   }
 }
