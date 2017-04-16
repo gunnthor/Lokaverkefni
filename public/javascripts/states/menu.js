@@ -28,7 +28,7 @@ LastRide.menu.prototype = {
 	},
 
 	startPlay: function() {
-		this.state.start('play');
+		this.state.start('select');
 	},
 	startEditor: function() {
 		this.state.start('editor');

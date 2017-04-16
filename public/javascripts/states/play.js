@@ -19,10 +19,12 @@ function mouseDragEnd() {   this.game.physics.box2d.mouseDragEnd(); }
 
 LastRide.play.prototype = {
 
-  init: function() {
+  init: function(mapNumber) {
     track = new Track(this);
     this.car = new Car(this);
     this.car.exists = false;
+    this.mapNumber = mapNumber;
+    console.log(this.mapNumber);
     // this.game.renderer.renderSession.roundPixels = true;
     this.stage.backgroundColor = '#204090';
     this.startingPoint = [];
@@ -31,11 +33,13 @@ LastRide.play.prototype = {
 
     //draw map herna?
     console.log("vertiies :D");
+    console.log("mapNumber:"+ this.mapNumber)
+    var leMapNumber = mapNumber;
     var that = this;
     $.ajax({
       url: '/getTrack',
       data: {
-        format: 'json'
+        data: JSON.stringify(mapNumber)
       },
       error: function() {
         console.log("error í ajax request");
@@ -57,6 +61,9 @@ LastRide.play.prototype = {
         that.startingPoint = tmp.startingPoint;
         that.car.createCar(that.startingPoint[0], that.startingPoint[1]);
         that.car.exists = true;
+        that.game.camera.follow(that.car.carBody);
+        that.finishPoint = tmp.finishPoint;
+        track.createFinishPoint(that.finishPoint[0], that.finishPoint[1]);
       },
       type: 'GET'
     });
@@ -78,6 +85,7 @@ LastRide.play.prototype = {
     this.dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     this.qKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Q);
     this.rKey = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
+    this.yKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Y);
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
     this.zKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Z);
@@ -90,6 +98,7 @@ LastRide.play.prototype = {
     this.zKey.onDown.add(this.torque, this, 0, 0.5);
     this.xKey.onUp.add(this.freeCam, this);
     this.rKey.onDown.add(this.magicButton, this);
+    this.yKey.onDown.add(this.goToMenu, this);
   
     // this.game.add.sprite(0,0, 'sky');
     this.firstaid = this.game.add.sprite(0,0, 'firstaid');
@@ -109,26 +118,6 @@ LastRide.play.prototype = {
     this.torqueMetre.fixedToCamera = true;
     
     this.game.camera.follow(this.car.carBody);
-
-// var theMap = 
-// [
-//   [0,300,400,300,716,295.5,1015,295.5,1218,212.5],
-//   [1500.5,209.5,1589.5,288.5,1836.5,286.5,2150.5,279.5],
-//   [2379.5,351.5,2682.5,347.5,2807.5,269.5,2833.5,191.5,2796.5,89.5,2684.5,59.5,2650.5,54.5],
-//   [2380.5, 352.5, 2304.5, 501.5, 2131.5, 576.5, 1878.5, 593.5, 1627.5, 592.5, 1548.5, 513.5]
-// ]
-
-  // var theMap =
-  // [
-  //   [0, 300,400,300,716,295.5],
-  //   [0,400,400,400,718,400],
-  //   [0,500,400,500,718,500],
-  //   [0,600,400,600,718,600]
-  // ]
-  // var testaJSON = JSON.parse()
-  // track.drawTrack(vertices);
-
-
   },
 
   mouseTapped: function() {
@@ -145,6 +134,9 @@ LastRide.play.prototype = {
     console.log("Magic");
     track.removeChain();
   },
+  goToMenu: function() {
+    this.state.start('menu');
+  },
 
   update: function() {
     track.update();
@@ -158,6 +150,13 @@ LastRide.play.prototype = {
         this.car.carAcceleration('on', 0);
       } else {
         this.car.carAcceleration('off', false );
+      }
+
+      if(track.finishLine) {
+        if(this.checkOverlap(this.car.carBody, track.finishLine)) {
+          console.log("overlapping");
+          this.state.start('menu');
+        }
       }
     }
     
@@ -185,6 +184,13 @@ LastRide.play.prototype = {
   //á að vera stórt W?
   win: function() {
     this.state.start('win');
+  },
+
+  checkOverlap: function(spriteA, spriteB) {
+    var boundsA = spriteA.getBounds();
+    var boundsB = spriteB.getBounds();
+
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
   },
 
   torque: function(value) {

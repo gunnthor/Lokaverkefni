@@ -24,6 +24,8 @@ LastRide.editor.prototype = {
     this.tKey = this.game.input.keyboard.addKey(Phaser.Keyboard.T);
     this.gKey = this.game.input.keyboard.addKey(Phaser.Keyboard.G);
     this.xKey = this.game.input.keyboard.addKey(Phaser.Keyboard.X);
+    this.yKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Y);
+
 
     this.cKey.onDown.add(this.cancelCurrentChain, this);
     this.rKey.onDown.add(this.removeLine, this);
@@ -35,11 +37,13 @@ LastRide.editor.prototype = {
     this.vKey.onDown.add(this.startingPoint, this);
     this.bKey.onDown.add(this.finishPoint, this);
     this.oKey.onDown.add(this.saveMap, this);
+    this.yKey.onDown.add(this.goToMenu, this);
 
     //Text Info
   	this.info = [];
     this.carExists = false;
     this.freecam = true;
+    this.alreadySaved == false;
 
   	this.ClickForVertsINFO = this.game.add.text(10, 10, 'Press Mouse to Create vertices', { fill: '#ffffff', font: '14pt Arial' } );
   	this.info.push(this.ClickForVertsINFO);
@@ -95,6 +99,9 @@ LastRide.editor.prototype = {
       } else {
         this.car.carAcceleration('off', false );
       }
+
+      // console.log(this.car.carBody);
+
     }
     
     
@@ -117,6 +124,13 @@ LastRide.editor.prototype = {
   	this.game.debug.cameraInfo(this.game.camera, 450, 32);
     this.game.debug.box2dWorld();
   },
+
+  // checkOverlap: function(spriteA, spriteB) {
+  //   var boundsA = spriteA.getBounds();
+  //   var boundsB = spriteB.getBounds();
+
+  //   return Phaser.Rectangle.intersects(boundsA, boundsB);
+  // },
 
   toggleInfoDisplay: function() {
   	console.log("Toggling info");
@@ -170,7 +184,11 @@ LastRide.editor.prototype = {
     this.track.createFinishPoint(this.game.input.mousePointer.worldX,
       this.game.input.mousePointer.worldY);
   },
+  goToMenu: function() {
+    this.state.start('menu');
+  },
   saveMap: function() {
+    if(this.alreadySaved == true) return;
     var info = this.track.saveMapInfo()
     console.log("info áður en það er sent með ajax");
     console.log(info);

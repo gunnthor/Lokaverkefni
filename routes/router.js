@@ -10,10 +10,20 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'One Last Ride!'});
 });
 
+router.get('/getMapCount', function(req, res, next){
+
+  database.getIdCount( (data)=>{
+    res.send(data);
+  });
+
+});
+
 
 router.get('/getTrack', function(req, res, next){
+  console.log('router tekur við info í getTrack og það segir:');
+  console.log(req.query);
 
-  database.selectQuery( (data)=>{
+  database.selectQuery(req.query, (data)=>{
     res.send(data);
   });
 

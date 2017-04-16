@@ -45,3 +45,9 @@
 # 12 April. PostgreSQL tengt við localhost server.
 
 # 13 April. Heroku PostgreSQL tengt við leikinn, notast við ajax.
+
+# 14 April. Bætti við Editor state, hægt er að teiknabraut, spawna test bíl, notkunarupplýsingar við editor, toggle á notkunarupplýsingar, cancel vertices, remove last line. Annað: Lenti í veseni með portin á borðtölvu og fartölvu.
+
+# 15 April. StartingPoints og finishpoints komin. Vantar að gera collision við finish point.
+            Hægt að save-a map til database bæði local og heroku postgresql og það inniheldur
+            Startingpoint, finishpoint hnit og map vertices.

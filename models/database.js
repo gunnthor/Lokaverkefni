@@ -52,14 +52,19 @@ var database = function() {
 
   const POOL_ERROR = {message: 'error fetching client from pool', code: 500};
 
-  this.hearMe = function(data) {
+  this.getIdCount = function(callback) {
+    pool.connect(function(err,client,done){
+      if(err) return console.error('error fetching client from pool', err);
+      var query = client.query('SELECT COUNT (DISTINCT id) FROM maps;');
 
-    console.log("melt it down just a little:");
-    // console.log(JSON.parse(data.info));
-    var information = JSON.parse(data.info);
-    console.log(information.startingPoint);
-    console.log(information.finishPoint);
-    console.log(information.vertices);
+      query.on('row', function(row, result){
+        // console.log('row í row:');
+        // console.log(row);
+
+        callback(row);
+      });
+      done();
+    });
   }
   
   this.insertData = function(jsonData){
@@ -83,15 +88,18 @@ var database = function() {
     });
   }
 
-  this.selectQuery = function(callback) {
+  this.selectQuery = function(mapNumber, callback) {
+    console.log("database hér, hvaða map number er þetta?");
+    console.log(mapNumber.data);
+    var getMapNR = mapNumber.data;
     pool.connect(function(err,client,done){
       if(err) return console.error('error fetching client from pool', err);
 
-      var checkQuery = client.query('SELECT data FROM maps where id = 5');
+      var checkQuery = client.query('SELECT data FROM maps where id =' + getMapNR);
 
       checkQuery.on('row', function(row, result){
         console.log('row í row:');
-        console.log(row.data);
+        // console.log(row.data);
 
         callback(row.data);
 

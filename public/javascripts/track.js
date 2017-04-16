@@ -10,6 +10,7 @@ function Track(game) {
   this.initializeNew = true;
   this.startingPointLocation = [];
   this.finishPointLocation = [];
+  this.finishLine;
 }
 
 Track.prototype.statusDebug = function(msg){
@@ -95,17 +96,14 @@ Track.prototype.createStartingPoint = function(xMouse, yMouse) {
 }
 
 Track.prototype.createFinishPoint = function(xMouse, yMouse) {
+  console.log('create finish');
   this.finishPointLocation = [xMouse, yMouse];
-  if(this.finishPointText) this.finishPointText.destroy();
-  this.finishPointText = this.game.add.text(xMouse, yMouse, '  Finish Point!  ');
-  this.finishPointText.anchor.set(0.5);
-  this.finishPointText.align ='center';
-  this.finishPointText.font = 'Arial Black';
-  this.finishPointText.fontSize = 20;
-  this.finishPointText.fontWeight = 'bold';
-  this.finishPointText.fill = '#ec008c';
 
-  this.finishPointText.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+  if(this.finishLine) this.finishLine.destroy();
+  this.finishLine = this.game.add.sprite(xMouse-57, yMouse-57, 'finish');
+  this.game.physics.enable(this.finishLine, Phaser.Physics.ARCADE);
+  this.finishLine.checkCollision = true;
+  this.finishLine.body.collideWorldBounds = true;
 }
 
 Track.prototype.saveMapInfo = function() {

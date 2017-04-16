@@ -18,6 +18,7 @@ LastRide.load.prototype = {
     this.load.image('star', 'images/star.png');
     this.load.image('phaser', 'images/phaser.png');
     this.load.image('firstaid', 'images/firstaid.png');
+    this.load.image('finish', 'images/finish.png');
     this.load.spritesheet('dude', 'images/dude.png', 32, 48);
     
     this.game.world.setBounds(-10000, -10000, 20000, 20000);
