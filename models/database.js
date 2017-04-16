@@ -9,6 +9,7 @@ var database = function() {
   const db_loc = 'onelastride' || process.env.DATABASE_URL;
 
   // if(env_db_loc) {
+    //HERKOU APP
     const params = url.parse(process.env.DATABASE_URL);
     const auth = params.auth.split(':');
 

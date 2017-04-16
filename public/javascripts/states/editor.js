@@ -60,7 +60,10 @@ LastRide.editor.prototype = {
     this.summonTestCarINFO = this.game.add.text(10, 90, 'Press T to summon a Test Car', { fill: '#ffffff', font: '14pt Arial' } );
     this.info.push(this.summonTestCarINFO);
 
-    this.ToggleTextINFO = this.game.add.text(10, 110, 'Press I to toggle info', { fill: '#ffffff', font: '14pt Arial' } );
+    this.saveMapInfoTEXT = this.game.add.text(10, 110, 'Press O to save the map(You can only save once)', { fill: '#ffffff', font: '14pt Arial' } );
+    this.info.push(this.saveMapInfoTEXT);
+
+    this.ToggleTextINFO = this.game.add.text(10, 130, 'Press I to toggle info', { fill: '#ffffff', font: '14pt Arial' } );
     this.info.push(this.ToggleTextINFO);
 
     for(var i = 0; i < this.info.length; i++) {
