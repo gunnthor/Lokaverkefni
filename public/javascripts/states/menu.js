@@ -12,9 +12,15 @@ LastRide.menu.prototype = {
 		var startLabel = this.game.add.text(80, 160,
 			'press the "W" key to start',
 			{font: '25px Arial', fill: '#ffffff'});
-		var startLabel = this.game.add.text(80, 240,
+		startLabel.inputEnabled = true;
+		startLabel.events.onInputDown.add(this.startPlay, this);
+
+		var editorLabel = this.game.add.text(80, 240,
 			'press the "E" key for Editor',
 			{font: '25px Arial', fill: '#ffffff'});
+		editorLabel.inputEnabled = true;
+		editorLabel.events.onInputDown.add(this.startEditor, this);
+
 
 		var wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
 		var eKey = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
