@@ -1,4 +1,5 @@
-# Lokaverkefni
+# Lokaverkefni 
+[One Last Ride](http://www.onelastride.herokuapp.com)
 
 ### 17 jan 
 Fann Ebbu sem leiðbeinanda. Ákvað að nota phaser sem game engine á framenda og nodejs á bakenda Setti upp express.
@@ -76,3 +77,17 @@ Bætti við Editor state, hægt er að teiknabraut, spawna test bíl, notkunarup
 ### 15 April. 
 StartingPoints og finishpoints komin. Vantar að gera collision við finish point.
 Hægt að save-a map til database bæði local og heroku postgresql og það inniheldur: Startingpoint, finishpoint hnit og map vertices.
+
+### 16 April.
+Gerði select menu. Þar veluru map til þess að loada. Eins og er þá heita borðin bara eftir id-unum í databasenum og það mun verða vesen þegar borðin eru orðin mörg því þá fyllist plássið á select menu.
+Collision detection er komið á finishPoint. Þegar það er collision þá ertu tekinn aftur í menu-ið.
+Back to menu takki er kominn. Virkar í editor og play.
+
+Todo list: 
+```
+* IF-segði mín fyrir Heroku DB og Local DB er ekki að virka.
+* Editor: Það þarf að vera hægt að eyða síðasta vertice punkti. (cancel og remove line virðist ekki vera nóg.)
+* Fallegur bakgrunnur mun gera gæfu mun fyrir útlit leiksins.
+```
+
+
