@@ -2,8 +2,6 @@ var database = function() {
   const pg = require('pg');
   const url = require('url');
   var fs = require('fs');
-
-  console.log('entered database');
   
   const env_db_loc = process.env.DATABASE_URL;
   const db_loc = 'onelastride' || process.env.DATABASE_URL;
