@@ -88,6 +88,7 @@ Todo list:
 * IF-segði mín fyrir Heroku DB og Local DB er ekki að virka.
 * Editor: Það þarf að vera hægt að eyða síðasta vertice punkti. (cancel og remove line virðist ekki vera nóg.)
 * Fallegur bakgrunnur mun gera gæfu mun fyrir útlit leiksins.
+* Gera bílinn betri.
 ```
 
 

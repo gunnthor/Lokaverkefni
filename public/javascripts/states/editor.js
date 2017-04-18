@@ -43,31 +43,48 @@ LastRide.editor.prototype = {
   	this.info = [];
     this.carExists = false;
     this.freecam = true;
+    this.toggleInfo = true;
     this.alreadySaved == false;
 
-  	this.ClickForVertsINFO = this.game.add.text(10, 10, 'Press Mouse to Create vertices', { fill: '#ffffff', font: '14pt Arial' } );
+  	this.ClickForVertsINFO = this.game.add.text(10, 10, 'Press Mouse to Create vertices', { fill: '#00FFFF', font: '14pt Arial' } );
   	this.info.push(this.ClickForVertsINFO);
 
-    this.SplitINFO = this.game.add.text(10, 30, 'Press Q to split up the track', { fill: '#ffffff', font: '14pt Arial' } );
+    this.SplitINFO = this.game.add.text(10, 30, 'Press Q to split up the track', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.SplitINFO);
 
-    this.RemoveLine = this.game.add.text(10, 50, 'Press R to remove last track', { fill: '#ffffff', font: '14pt Arial' } );
+    this.RemoveLine = this.game.add.text(10, 50, 'Press R to remove last track', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.RemoveLine);
 
-    this.cancelChain = this.game.add.text(10, 70, 'Press C to cancel track', { fill: '#ffffff', font: '14pt Arial' } );
+    this.cancelChain = this.game.add.text(10, 70, 'Press C to cancel track', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.cancelChain);
 
-    this.summonTestCarINFO = this.game.add.text(10, 90, 'Press T to summon a Test Car', { fill: '#ffffff', font: '14pt Arial' } );
+    this.summonTestCarINFO = this.game.add.text(10, 90, 'Press T to summon a Test Car', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.summonTestCarINFO);
 
-    this.toggleFreecam = this.game.add.text(10, 110, 'Press X to toggle freecam', { fill: '#ffffff', font: '14pt Arial' } );
-    this.info.push(this.toggleFreecam);
+    this.carKeysTEXT = this.game.add.text(10, 110, 'USE W and D to drive the car', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.info.push(this.carKeysTEXT);
 
-    this.saveMapInfoTEXT = this.game.add.text(10, 130, 'Press O to save the map(You can only save once)', { fill: '#ffffff', font: '14pt Arial' } );
+    this.saveMapInfoTEXT = this.game.add.text(10, 130, 'Press O to save the map', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.saveMapInfoTEXT);
 
-    this.ToggleTextINFO = this.game.add.text(10, 150, 'Press I to toggle info', { fill: '#ffffff', font: '14pt Arial' } );
+    this.saveMapInfoTEXT2 = this.game.add.text(10, 150, 'Note: You can only save the map once.', { fill: '#ffff00', font: '14pt Arial' } );
+    this.info.push(this.saveMapInfoTEXT2);
+
+    this.ToggleTextINFO = this.game.add.text(10, 170, 'Press I to toggle info', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.ToggleTextINFO);
+
+    this.createStartingPointTEXT = this.game.add.text(310, 10, 'Press V for Starting Point', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.info.push(this.createStartingPointTEXT);
+
+    this.createFinishPointTEXT = this.game.add.text(310, 30, 'Press B for Finish Point', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.info.push(this.createFinishPointTEXT);
+
+    this.toggleFreecam = this.game.add.text(310, 50, 'Press X to toggle freecam', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.info.push(this.toggleFreecam);
+
+    this.useArrowKeysText = this.game.add.text(310, 70, 'Use Arrow Keys to move Camera', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.info.push(this.useArrowKeysText);
+
 
     for(var i = 0; i < this.info.length; i++) {
        this.info[i].fixedToCamera = true;
@@ -127,7 +144,8 @@ LastRide.editor.prototype = {
   },
 
   render: function() {
-  	this.game.debug.cameraInfo(this.game.camera, 450, 32);
+    if(this.toggleInfo) this.game.debug.cameraInfo(this.game.camera, 350, 110);
+  	
     this.game.debug.box2dWorld();
   },
 
@@ -146,6 +164,7 @@ LastRide.editor.prototype = {
     for(var i = 0; i < this.info.length; i++) {
        this.info[i].alpha = alpha;
     }
+    this.toggleInfo = !this.toggleInfo;
   },
 
   freeCam: function() {
