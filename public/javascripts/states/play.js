@@ -70,13 +70,12 @@ LastRide.play.prototype = {
   },
 
   create: function() {
-    
 
-    // track = new Track(this);
-
-  	// this.game.stage.backgroundColor = '#124184';
   	this.game.physics.box2d.debugDraw.joints = true;
-	  // game.physics.box2d.setBoundsToWorld();
+
+	  this.skyBackground = this.game.add.sprite(-10000,-10000, 'sky');
+    this.skyBackground.width = 20000;
+    this.skyBackground.height = 20000;
 
   	//Prepare the keyboard to be used
     this.wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);

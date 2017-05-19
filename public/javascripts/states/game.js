@@ -1,6 +1,6 @@
 var LastRide = LastRide || {};
 
-LastRide.game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameDiv');
+LastRide.game = new Phaser.Game(1280, 600, Phaser.AUTO, 'gameDiv');
 
 //Adding each state and defining them
 LastRide.game.state.add('boot', LastRide.boot);

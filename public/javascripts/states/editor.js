@@ -14,9 +14,10 @@ LastRide.editor.prototype = {
     this.dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     
     //Commands
-    this.cKey = this.game.input.keyboard.addKey(Phaser.Keyboard.C);
-    this.vKey = this.game.input.keyboard.addKey(Phaser.Keyboard.V);
     this.bKey = this.game.input.keyboard.addKey(Phaser.Keyboard.B);
+    this.cKey = this.game.input.keyboard.addKey(Phaser.Keyboard.C);
+    this.eKey = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
+    this.vKey = this.game.input.keyboard.addKey(Phaser.Keyboard.V);
     this.iKey = this.game.input.keyboard.addKey(Phaser.Keyboard.I);
     this.oKey = this.game.input.keyboard.addKey(Phaser.Keyboard.O);
     this.qKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Q);
@@ -26,9 +27,10 @@ LastRide.editor.prototype = {
     this.xKey = this.game.input.keyboard.addKey(Phaser.Keyboard.X);
     this.yKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Y);
 
-
+    //listeners
     this.cKey.onDown.add(this.cancelCurrentChain, this);
-    this.rKey.onDown.add(this.removeLine, this);
+    this.eKey.onDown.add(this.removeLine, this);
+    this.rKey.onDown.add(this.removeLastVertice, this);
     this.iKey.onDown.add(this.toggleInfoDisplay, this);
     this.qKey.onDown.add(this.splitTrack, this);
     this.tKey.onDown.add(this.summonTestCar, this);
@@ -52,7 +54,7 @@ LastRide.editor.prototype = {
     this.SplitINFO = this.game.add.text(10, 30, 'Press Q to split up the track', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.SplitINFO);
 
-    this.RemoveLine = this.game.add.text(10, 50, 'Press R to remove last track', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.RemoveLine = this.game.add.text(10, 50, 'Press R to remove last Vertice', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.RemoveLine);
 
     this.cancelChain = this.game.add.text(10, 70, 'Press C to cancel track', { fill: '#00FFFF', font: '14pt Arial' } );
@@ -85,21 +87,19 @@ LastRide.editor.prototype = {
     this.useArrowKeysText = this.game.add.text(310, 70, 'Use Arrow Keys to move Camera', { fill: '#00FFFF', font: '14pt Arial' } );
     this.info.push(this.useArrowKeysText);
 
-
     for(var i = 0; i < this.info.length; i++) {
        this.info[i].fixedToCamera = true;
        this.info[i].alpha = 0.5;
     }
-
   },
   create: function() {
+    this.skyBackground = this.game.add.sprite(-10000,-10000, 'sky');
+    this.skyBackground.width = 20000;
+    this.skyBackground.height = 20000;
 
-  	//***TODO!!***\\
-
-  	//Instructions textar[X]
-  	//Track [X]
-  	//Test car.
-  	//save to database
+    this.cloud = this.game.add.sprite(0,0, 'cloud');
+    this.cloud.width = 120;
+    this.cloud.height= 100
 
   	this.track = new Track(this);
     this.car = new Car(this);
@@ -122,11 +122,7 @@ LastRide.editor.prototype = {
       } else {
         this.car.carAcceleration('off', false );
       }
-
-      // console.log(this.car.carBody);
-
     }
-    
     
     //CAMERA CONTROLS
     if(this.freecam) {
@@ -192,6 +188,9 @@ LastRide.editor.prototype = {
   },
   cancelCurrentChain: function() {
     this.track.cancelCurrentChain();
+  },
+  removeLastVertice: function() {
+    this.track.removeLastVertice();
   },
   summonTestCar: function() {
     this.car.createCar(this.game.input.mousePointer.worldX,

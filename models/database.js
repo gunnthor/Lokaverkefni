@@ -8,7 +8,7 @@ var database = function() {
   const env_db_loc = process.env.DATABASE_URL;
   const db_loc = 'onelastride' || process.env.DATABASE_URL;
 
-  // if(env_db_loc) {
+////HEROKU PostgreSQL///////////////////////////
     const params = url.parse(process.env.DATABASE_URL);
     const auth = params.auth.split(':');
 
@@ -21,29 +21,17 @@ var database = function() {
       database: params.pathname.split('/')[1],
       ssl: true
     };
-  // } else {
-  //   //Connection to Local PostgreSQL
-  //   console.log("i go here rite?")
-  //   var config = {
-  //     user: 'postgres', //env var: PGUSER 
-  //     database: db_loc, //env var: PGDATABASE 
-  //     password: 'root', //env var: PGPASSWORD 
-  //     port: 5432, //env var: PGPORT  							MUNA BREYTA!
-  //     max: 20, // max number of clients in the pool 
-  //     idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
-  //   };
-  // }
-    
-  //Local database
+//////////////////////////////////////////////////
+////LOCAL PostgreSQL/////////////////////////////
   // var config = {
-  //     user: 'postgres', //env var: PGUSER 
-  //     database: db_loc, //env var: PGDATABASE 
-  //     password: 'root', //env var: PGPASSWORD 
-  //     port: 5432, //env var: PGPORT               MUNA BREYTA!
-  //     max: 20, // max number of clients in the pool 
-  //     idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
-  //   };
-
+  //   user: 'postgres', //env var: PGUSER 
+  //   database: db_loc, //env var: PGDATABASE 
+  //   password: 'root', //env var: PGPASSWORD 
+  //   port: 5432, //env var: PGPORT  							MUNA BREYTA!
+  //   max: 20, // max number of clients in the pool 
+  //   idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
+  // };
+/////////////////////////////////////////////////
 
 
   //this initializes a connection pool

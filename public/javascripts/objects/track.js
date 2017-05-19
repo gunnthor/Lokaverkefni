@@ -57,6 +57,16 @@ Track.prototype.cancelCurrentChain = function() {
   }
 }
 
+Track.prototype.removeLastVertice = function() {
+  console.log("last vertice!");
+  var lastSeat = this.trackVertices.length-1;
+  this.trackVertices.splice(lastSeat, 2);
+  this.trackVertices.splice(lastSeat-1, 2);
+  this.newTrack = true;
+  console.log(this.trackVertices);
+
+}
+
 Track.prototype.split = function(x,y) {
   this.allVertices.push(this.trackVertices);
   this.initializeNew = true;
@@ -65,9 +75,7 @@ Track.prototype.split = function(x,y) {
   this.trackVertices = [];
 }
 
-Track.prototype.removeVertex = function() {
-  
-}
+
 
 Track.prototype.drawTrack = function(map) {
 
