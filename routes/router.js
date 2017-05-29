@@ -18,6 +18,12 @@ router.get('/getMapCount', function(req, res, next){
 
 });
 
+router.get('/deleteTrack', function(req, res, next) {
+  console.log('track deleted i hope')
+  database.deleteQuery();
+});
+
+
 
 router.get('/getTrack', function(req, res, next){
   console.log('router tekur við info í getTrack og það segir:');
@@ -40,7 +46,5 @@ router.post('/saveTrack', function(req, res, next){
   // });
 
 });
-
-
 
 module.exports = router;
