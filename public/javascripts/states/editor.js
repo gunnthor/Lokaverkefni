@@ -5,6 +5,10 @@ LastRide.editor = function(){};
 LastRide.editor.prototype = {
   init: function() {
   	console.log("Entered Editor!");
+    
+    this.skyBackground = this.game.add.sprite(-10000,-10000, 'sky');
+    this.skyBackground.width = 20000;
+    this.skyBackground.height = 20000;
   	//Inputs
     this.cursors = this.game.input.keyboard.createCursorKeys();
     //car keys
@@ -48,43 +52,43 @@ LastRide.editor.prototype = {
     this.toggleInfo = true;
     this.alreadySaved == false;
 
-  	this.ClickForVertsINFO = this.game.add.text(10, 10, 'Press Mouse to Create vertices', { fill: '#00FFFF', font: '14pt Arial' } );
+  	this.ClickForVertsINFO = this.game.add.text(10, 10, 'Press Mouse to Create vertices', { fill: '#800000', font: '14pt Arial' } );
   	this.info.push(this.ClickForVertsINFO);
 
-    this.SplitINFO = this.game.add.text(10, 30, 'Press Q to split up the track', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.SplitINFO = this.game.add.text(10, 30, 'Press Q to split up the track', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.SplitINFO);
 
-    this.RemoveLine = this.game.add.text(10, 50, 'Press R to remove last Vertice', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.RemoveLine = this.game.add.text(10, 50, 'Press R to remove last Vertice', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.RemoveLine);
 
-    this.cancelChain = this.game.add.text(10, 70, 'Press C to cancel track', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.cancelChain = this.game.add.text(10, 70, 'Press C to cancel track', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.cancelChain);
 
-    this.summonTestCarINFO = this.game.add.text(10, 90, 'Press T to summon a Test Car', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.summonTestCarINFO = this.game.add.text(10, 90, 'Press T to summon a Test Car', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.summonTestCarINFO);
 
-    this.carKeysTEXT = this.game.add.text(10, 110, 'USE W and D to drive the car', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.carKeysTEXT = this.game.add.text(10, 110, 'USE W and D to drive the car', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.carKeysTEXT);
 
-    this.saveMapInfoTEXT = this.game.add.text(10, 130, 'Press O to save the map', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.saveMapInfoTEXT = this.game.add.text(10, 130, 'Press O to save the map', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.saveMapInfoTEXT);
 
     this.saveMapInfoTEXT2 = this.game.add.text(10, 150, 'Note: You can only save the map once.', { fill: '#ffff00', font: '14pt Arial' } );
     this.info.push(this.saveMapInfoTEXT2);
 
-    this.ToggleTextINFO = this.game.add.text(10, 170, 'Press I to toggle info', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.ToggleTextINFO = this.game.add.text(10, 170, 'Press I to toggle info', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.ToggleTextINFO);
 
-    this.createStartingPointTEXT = this.game.add.text(310, 10, 'Press V for Starting Point', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.createStartingPointTEXT = this.game.add.text(310, 10, 'Press V for Starting Point', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.createStartingPointTEXT);
 
-    this.createFinishPointTEXT = this.game.add.text(310, 30, 'Press B for Finish Point', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.createFinishPointTEXT = this.game.add.text(310, 30, 'Press B for Finish Point', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.createFinishPointTEXT);
 
-    this.toggleFreecam = this.game.add.text(310, 50, 'Press X to toggle freecam', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.toggleFreecam = this.game.add.text(310, 50, 'Press X to toggle freecam', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.toggleFreecam);
 
-    this.useArrowKeysText = this.game.add.text(310, 70, 'Use Arrow Keys to move Camera', { fill: '#00FFFF', font: '14pt Arial' } );
+    this.useArrowKeysText = this.game.add.text(310, 70, 'Use Arrow Keys to move Camera', { fill: '#800000', font: '14pt Arial' } );
     this.info.push(this.useArrowKeysText);
 
     for(var i = 0; i < this.info.length; i++) {
@@ -93,13 +97,11 @@ LastRide.editor.prototype = {
     }
   },
   create: function() {
-    this.skyBackground = this.game.add.sprite(-10000,-10000, 'sky');
-    this.skyBackground.width = 20000;
-    this.skyBackground.height = 20000;
+    
 
-    this.cloud = this.game.add.sprite(0,0, 'cloud');
-    this.cloud.width = 120;
-    this.cloud.height= 100
+    // this.cloud = this.game.add.sprite(0,0, 'cloud');
+    // this.cloud.width = 120;
+    // this.cloud.height= 100
 
   	this.track = new Track(this);
     this.car = new Car(this);

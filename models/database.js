@@ -27,7 +27,7 @@ var database = function() {
   //   user: 'postgres', //env var: PGUSER 
   //   database: db_loc, //env var: PGDATABASE 
   //   password: 'root', //env var: PGPASSWORD 
-  //   port: 5432, //env var: PGPORT  							MUNA BREYTA!
+  //   port: 5433, //env var: PGPORT  							MUNA BREYTA!
   //   max: 20, // max number of clients in the pool 
   //   idleTimeoutMillis: 300000000, // how long a client is allowed to remain idle before being closed 
   // };
@@ -113,11 +113,6 @@ var database = function() {
       });
   });
 }
-
-
-
-
-
 
   /**
   * Gets an array containing the ids of all the bars in the database
