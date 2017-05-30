@@ -1,3 +1,4 @@
+//Höfundur: Gunnþór Karl Rafnsson
 var database = function() {
   const pg = require('pg');
   const url = require('url');
@@ -111,35 +112,8 @@ var database = function() {
         // console.log("results from checkQuery");
         // console.log(result.fields);
       });
-    });
-  }
-
-  this.deleteQuery = function() {
-    console.log('gonna delete this track!')
-    pool.connect(function(err,client,done){
-      if(err) return console.error('error fetching client from pool', err);
-
-      var deleteQuery = client.query('delete FROM maps where id = 1');
-
-      deleteQuery.on('row', function(row, result){
-        console.log('row í row:');
-        // console.log(row.data);
-
-        // callback(row.data);
-
-        // console.log('result í row:');
-        // console.log(result);
-
-      });
-
-      deleteQuery.on('end', function(result) {
-        // console.log("results from checkQuery");
-        // console.log(result.fields);
-      });
-    });
-  }
-
-
+  });
+}
 
   /**
   * Gets an array containing the ids of all the bars in the database

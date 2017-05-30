@@ -1,3 +1,4 @@
+//Höfundur: Gunnþór Karl Rafnsson
 var win = {
   create: function() {
 

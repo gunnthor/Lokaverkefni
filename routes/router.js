@@ -1,3 +1,4 @@
+//Höfundur: Gunnþór Karl Rafnsson
 var express = require('express');
 var router = express.Router();
 var datamanagerModule = require('../models/database');

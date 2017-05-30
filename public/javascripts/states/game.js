@@ -1,3 +1,4 @@
+//Höfundur: Gunnþór Karl Rafnsson
 var LastRide = LastRide || {};
 
 LastRide.game = new Phaser.Game(1280, 600, Phaser.AUTO, 'gameDiv');

@@ -1,3 +1,4 @@
+//Höfundur: Gunnþór Karl Rafnsson
 var LastRide = LastRide || {};
 
 LastRide.menu = function(){};

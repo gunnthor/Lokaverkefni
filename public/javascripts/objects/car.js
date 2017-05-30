@@ -1,3 +1,4 @@
+//Höfundur: Gunnþór Karl Rafnsson
 function Car(game) {
 	this.game = game;
 	this.carBody = this.game.add.sprite(100, 100, 'phaser')

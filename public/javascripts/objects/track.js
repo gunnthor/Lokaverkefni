@@ -1,3 +1,4 @@
+//Höfundur: Gunnþór Karl Rafnsson
 function Track(game) {
   this.game = game;
   
